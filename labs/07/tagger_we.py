@@ -1,8 +1,16 @@
 #!/usr/bin/env python3
+
+# Team members:
+# Petra Doubravová - 7ac09119-b96f-11e7-a937-00505601122b
+# Jaroslav Knotek - 43b3e7da-366d-11e8-9de3-00505601122b
+
 import numpy as np
 import tensorflow as tf
+from tensorflow.python.keras.layers import Input, Dense, Embedding, LSTM, GRU, Bidirectional
 
+# from tensorflow.python.estimator import keras
 from morpho_dataset import MorphoDataset
+
 
 class Network:
     def __init__(self, args, num_words, num_tags):
@@ -10,15 +18,27 @@ class Network:
         # `word_ids` consists of a batch of sentences, each
         # a sequence of word indices. Padded words have index 0.
 
+        word_ids = Input(shape=[None])
         # TODO: Embed input words with dimensionality `args.we_dim`, using
         # `mask_zero=True`.
+
+        embeddings = Embedding(input_dim=num_words, output_dim=args.we_dim, mask_zero=True)(word_ids)
 
         # TODO: Create specified `args.rnn_cell` RNN cell (LSTM, GRU) with
         # dimension `args.rnn_cell_dim` and apply it in a bidirectional way on
         # the embedded words, concatenating opposite directions.
+        rnn_layers = {
+            "lstm": LSTM(args.rnn_cell_dim, return_sequences=True),
+            "gru": GRU(args.rnn_cell_dim, return_sequences=True),
+        }
+        cell = rnn_layers.get(args.rnn_cell.lower())
+
+        bidirectional = Bidirectional(cell, merge_mode='concat')(embeddings)
 
         # TODO: Add a softmax classification layer into `num_tags` classes, storing
         # the outputs in `predictions`.
+
+        predictions = Dense(num_tags, activation='softmax')(bidirectional)
 
         self.model = tf.keras.Model(inputs=word_ids, outputs=predictions)
         self.model.compile(optimizer=tf.optimizers.Adam(),
@@ -38,6 +58,9 @@ class Network:
             #
             # Store the computed metrics in `metrics`.
 
+            targets = np.expand_dims(batch[dataset.TAGS].word_ids, 2)
+            metrics = self.model.train_on_batch(batch[dataset.FORMS].word_ids, targets, reset_metrics=True)
+
             tf.summary.experimental.set_step(self.model.optimizer.iterations)
             with self._writer.as_default():
                 for name, value in zip(self.model.metrics_names, metrics):
@@ -49,6 +72,8 @@ class Network:
             # TODO: Evaluate the given match, using the same inputs as in training.
             # Additionally, pass `reset_metrics=False` to aggregate the metrics.
             # Store the metrics of the last batch as `metrics`.
+            targets = np.expand_dims(batch[dataset.TAGS].word_ids, 2)
+            metrics = self.model.test_on_batch(batch[dataset.FORMS].word_ids, targets, reset_metrics=False)
         self.model.reset_metrics()
 
         metrics = dict(zip(self.model.metrics_names, metrics))
