@@ -3,7 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="c2fa148a-8455-4f90-9e94-264e743e7858" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/tagger_cle_rnn.py" beforeDir="false" afterPath="$PROJECT_DIR$/tagger_cle_rnn.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tagger_we.py" beforeDir="false" afterPath="$PROJECT_DIR$/tagger_we.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -28,8 +27,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/tagger_cle_rnn.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="102">
-              <caret line="9" column="40" lean-forward="true" selection-start-line="9" selection-start-column="40" selection-end-line="9" selection-end-column="40" />
+            <state relative-caret-position="182">
+              <caret line="90" column="39" lean-forward="true" selection-start-line="90" selection-start-column="39" selection-end-line="90" selection-end-column="39" />
             </state>
           </provider>
         </entry>
@@ -44,6 +43,9 @@
       <find>optimizer</find>
       <find>test_on</find>
       <find>compile</find>
+      <find>cle</find>
+      <find>train</find>
+      <find>metrics</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -109,7 +111,28 @@
       </list>
     </option>
   </component>
-  <component name="RunManager">
+  <component name="RunManager" selected="Python.tagger_cle_rnn">
+    <configuration name="tagger_cle_rnn" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <module name="07" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/tagger_cle_rnn.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
     <configuration name="tagger_we" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="07" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -133,6 +156,7 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Python.tagger_cle_rnn" />
         <item itemvalue="Python.tagger_we" />
       </list>
     </recent_temporary>
@@ -218,8 +242,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/tagger_cle_rnn.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="102">
-          <caret line="9" column="40" lean-forward="true" selection-start-line="9" selection-start-column="40" selection-end-line="9" selection-end-column="40" />
+        <state relative-caret-position="182">
+          <caret line="90" column="39" lean-forward="true" selection-start-line="90" selection-start-column="39" selection-end-line="90" selection-end-column="39" />
         </state>
       </provider>
     </entry>
