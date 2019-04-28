@@ -6,8 +6,6 @@
 
 import numpy as np
 import tensorflow as tf
-from tensorflow.python.keras.layers import Input, Dense, Embedding, LSTM, GRU, Bidirectional
-
 # from tensorflow.python.estimator import keras
 from morpho_dataset import MorphoDataset
 
@@ -18,27 +16,27 @@ class Network:
         # `word_ids` consists of a batch of sentences, each
         # a sequence of word indices. Padded words have index 0.
 
-        word_ids = Input(shape=[None])
+        word_ids = tf.keras.layers.Input(shape=[None])
         # TODO: Embed input words with dimensionality `args.we_dim`, using
         # `mask_zero=True`.
 
-        embeddings = Embedding(input_dim=num_words, output_dim=args.we_dim, mask_zero=True)(word_ids)
+        embeddings = tf.keras.layers.Embedding(input_dim=num_words, output_dim=args.we_dim, mask_zero=True)(word_ids)
 
         # TODO: Create specified `args.rnn_cell` RNN cell (LSTM, GRU) with
         # dimension `args.rnn_cell_dim` and apply it in a bidirectional way on
         # the embedded words, concatenating opposite directions.
         rnn_layers = {
-            "lstm": LSTM(args.rnn_cell_dim, return_sequences=True),
-            "gru": GRU(args.rnn_cell_dim, return_sequences=True),
+            "lstm": tf.keras.layers.LSTM(args.rnn_cell_dim, return_sequences=True),
+            "gru": tf.keras.layers.GRU(args.rnn_cell_dim, return_sequences=True),
         }
         cell = rnn_layers.get(args.rnn_cell.lower())
 
-        bidirectional = Bidirectional(cell, merge_mode='concat')(embeddings)
+        bidirectional = tf.keras.layers.Bidirectional(cell, merge_mode='concat')(embeddings)
 
         # TODO: Add a softmax classification layer into `num_tags` classes, storing
         # the outputs in `predictions`.
 
-        predictions = Dense(num_tags, activation='softmax')(bidirectional)
+        predictions = tf.keras.layers.Dense(num_tags, activation='softmax')(bidirectional)
 
         self.model = tf.keras.Model(inputs=word_ids, outputs=predictions)
         self.model.compile(optimizer=tf.optimizers.Adam(),
